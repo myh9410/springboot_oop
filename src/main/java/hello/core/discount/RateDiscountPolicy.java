@@ -1,5 +1,6 @@
 package hello.core.discount;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 //빈 등록시 Qualifier를 붙여준다 - 추가 구분자의 역할
 //@Qualifier("mainDiscountPolicy")
-@Primary // 우선순위를 가짐
+//@Primary // 우선순위를 가짐
+@MainDiscountPolicy
 public class RateDiscountPolicy implements DiscountPolicy{
 
     private int discountPercent = 10;

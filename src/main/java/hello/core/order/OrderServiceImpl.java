@@ -13,7 +13,12 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy;
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
+//    @Autowired private MemberRepository memberRepository; // Field Injection not recommended
+//    @Autowired private DiscountPolicy discountPolicy;
+
     @Autowired
+    //생성자 주입 - 생성자 호출시점에 딱 1번만 호출되는 것이 보장된다.
+    //불변, 필수 의존 관계에 사용
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

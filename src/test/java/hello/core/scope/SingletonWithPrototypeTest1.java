@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,8 +44,12 @@ public class SingletonWithPrototypeTest1 {
     static class ClientBean {
 //        private final PrototypeBean prototypeBean;  // 생성 시점에 주입된다
 
+//        @Autowired
+//        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+
+        // javax.inject 사용
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+        private Provider<PrototypeBean> prototypeBeanProvider;
 
 //        @Autowired
 //        public ClientBean(PrototypeBean prototypeBean) {
@@ -53,7 +58,8 @@ public class SingletonWithPrototypeTest1 {
 
         public int logic() {
             // getObject 수행 시, Dependency Lookup으로 PrototypeBean을 가져온다.
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+//            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
